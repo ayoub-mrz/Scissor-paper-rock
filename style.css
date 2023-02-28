@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+body {
+    background: radial-gradient(#1f3756, #141539);
+    height: 100vh;
+    overflow: hidden;
+}
+
+button {
+    border: none;
+    outline: none;
+}
