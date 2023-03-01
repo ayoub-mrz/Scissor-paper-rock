@@ -317,12 +317,124 @@ button {
     .container {
         width: 750px;
     }
+
+    /* Header */
+    .game-header {
+        width: 80%;
+        border: 2px solid hsl(217, 16%, 45%);
+        margin: 2rem auto;
+    }
+    .game-header .game-logo img {
+        height: 80px;
+    }
+    .game-header .game-score {
+        height: 90px;
+        aspect-ratio: 1.5/1;
+        border-radius: 5px;
+    }
+    .game-header .game-score .score-title {
+        font-size: 1em;
+    }
+    .game-header .game-score .score-num {
+        font-size: 3.25em;
+        line-height: 50px;
+    }
+    /* Header */
+    
+    /* Dashboard */
+    .game-dashboard .step-one {
+        height: 280px;
+        width: 300px;
+    }
+    .game-dashboard .piece img {
+        height: 50px;
+    }
+    .game-dashboard .piece,
+    .game-dashboard .step-two .winner .winner-animation  {
+        width: 180px;
+    }
+
+    .game-dashboard .step-two .selection {
+        width: 170px;
+    }
+    .game-dashboard .step-two {
+        width: 70%;
+    }
+    .game-dashboard .step-two .user .title, .game-dashboard .step-two .house .title {
+        font-size: 1.25em;
+        margin-top: 4rem;
+    }
+    .game-dashboard .step-two .winner .winner-animation span:nth-child(1) {
+        padding: 8rem;
+        background-color: #ffffff0a;
+    }
+    .game-dashboard .step-two .winner .winner-animation span:nth-child(2) {
+        padding: 10rem;
+        background-color: #ffffff08;
+    }
+    .game-dashboard .step-two .winner .winner-animation span:nth-child(3) {
+        padding: 12rem;
+        background-color: #ffffff05;
+    }
+    /* Dashboard */
+    
+    /* Rules */
+    .rules button {
+        bottom: 30px;
+        right: 30px;
+        transform: unset;
+    }
+    .rules button:hover {
+        transform: scale(.95);
+    }
+    /* Rules */
 }
   /* Medium */
 @media (min-width: 992px) {
     .container {
         width: 970px;
     }
+    /* Dashboard */
+    .game-dashboard .step-two {
+        width: 90%;
+    }
+    .game-dashboard .step-two .result {
+        position: absolute;
+        bottom: unset;
+        left: 50%;
+        letter-spacing: 2px;
+        transform: translateX(-50%);
+    }
+    .game-dashboard .step-two .piece,
+    .game-dashboard .step-two .winner .winner-animation {
+        width: 230px;
+    }
+    .game-dashboard .step-two .piece img {
+        height: 80px;
+    }
+    .game-dashboard .step-two .user, .game-dashboard .step-two .house {
+        flex-direction: column-reverse;
+    }
+    .game-dashboard .step-two .user .title, .game-dashboard .step-two .house .title {
+        margin-top: 0;
+        margin-bottom: 4rem;
+    }
+    .game-dashboard .step-two .winner .winner-animation span {
+        top: 65%;
+    }
+    .game-dashboard .step-two .winner .winner-animation span:nth-child(1) {
+        padding: 10rem;
+        background-color: #ffffff0a;
+    }
+    .game-dashboard .step-two .winner .winner-animation span:nth-child(2) {
+        padding: 14rem;
+        background-color: #ffffff08;
+    }
+    .game-dashboard .step-two .winner .winner-animation span:nth-child(3) {
+        padding: 18rem;
+        background-color: #ffffff05;
+    }
+    /* Dashboard */
 }
   /* Large */
 @media (min-width: 1200px) {
