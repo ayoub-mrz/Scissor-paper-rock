@@ -69,6 +69,175 @@ button {
  }
 /* ------------------------------------ Game Header ---------------------------------------------- */
 
+/* ------------------------------------ Game Dashboard ---------------------------------------------- */
+.game-dashboard {
+    height: 60vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-dashboard .piece  {
+    width: 130px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 0 #000;
+    cursor: pointer;
+    transition: .5s;
+}
+.game-dashboard .piece img {
+    height: 40px;
+    position: relative;
+    z-index: 9;
+}
+.game-dashboard .paper {
+    background: linear-gradient(hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+    box-shadow: 0 9px 0 hsl(230, 89%, 62%), 0 7px 5px 5px #0000007a;
+}
+.game-dashboard .scissor {
+    background: linear-gradient(hsl(39, 89%, 49%), hsl(40, 84%, 53%));
+    box-shadow: 0 9px 0 hsl(39deg 97% 40%), 0 7px 5px 5px #0000007a;
+}
+.game-dashboard .rock {
+    background: linear-gradient(hsl(349, 71%, 52%), hsl(349, 70%, 56%));
+    box-shadow: 0 9px 0 hsl(349, 71%, 52%), 0 7px 5px 5px #0000007a;
+}
+.game-dashboard .piece::after {
+    content: '';
+    background: #e8e8e8;
+    height: 75%;
+    width: 75%;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: inset 0px 8px 0 #c7c7c7;
+}
+/* ------------- Step 1 --------------- */
+.game-dashboard .step-one {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    background: url(IMG/bg-triangle.svg) no-repeat center;
+    background-size: contain;
+}
+.game-dashboard .step-one .piece:hover {
+    scale: .98;
+}
+.game-dashboard .step-one .paper {
+    top: calc(-130px / 2);
+    left: 0;
+    transform: translateX(-50%);
+}
+.game-dashboard .step-one .scissor {
+    top: calc(-130px / 2);
+    right: 0;
+    transform: translateX(50%);
+}
+.game-dashboard .step-one .rock {
+    bottom: calc(-130px / 2);
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* ------------- Step 1 --------------- */
+
+/* ------------- Step 2 --------------- */
+.game-dashboard .step-two {
+    width: 300px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    display: none;
+}
+.game-dashboard .step-two .user ,
+.game-dashboard .step-two .house {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.game-dashboard .step-two .winner .winner-animation {
+    position: absolute;
+    width: 110px;
+    aspect-ratio: 1;
+}
+.game-dashboard .step-two .winner .winner-animation span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8rem;
+    border-radius: 50%;
+    z-index: -1;
+}
+.game-dashboard .step-two .winner .winner-animation span:nth-child(1) {
+    padding: 6rem;
+    background-color: #ffffff0a;
+}
+.game-dashboard .step-two .winner .winner-animation span:nth-child(2) {
+    padding: 8rem;
+    background-color: #ffffff08;
+}
+.game-dashboard .step-two .winner .winner-animation span:nth-child(3) {
+    padding: 10rem;
+    background-color: #ffffff05;
+}
+.game-dashboard .step-two .user .title ,
+.game-dashboard .step-two .house .title {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 2rem;
+}
+.game-dashboard .step-two .selection {
+    width: 110px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #1d1d1d78;
+    display: grid;
+    place-items: center;
+}
+.game-dashboard .step-two .result {
+    position: absolute;
+    bottom: -90%;
+    left: 50%;
+    letter-spacing: 2px;
+    transform: translateX(-50%);
+}
+.game-dashboard .step-two .result .result-title {
+    font-size: 3em;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+}
+.game-dashboard .step-two .result .play-again {
+    width: 100%;
+    padding-block: .65rem;
+    color: hsl(228, 46%, 31%);
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+.game-dashboard .step-two .result .play-again:hover {
+    outline: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+}
+
+/* ------------- Step 2 --------------- */
+
+/* ------------------------------------ Game Dashboard ---------------------------------------------- */
+
 /* ------------------------------------ Container & Query ---------------------------------------------- */
 
 .container {
