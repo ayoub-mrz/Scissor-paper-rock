@@ -63,8 +63,7 @@ button {
     color: #00bcd4;
     font-size: .55em;
     line-height: 25px;
-    animation: IncrementScore 1.6s;
-    animation-play-state: paused;
+    /* animation: IncrementScore 1.6s; */
     opacity: 0;
  }
 /* ------------------------------------ Game Header ---------------------------------------------- */
@@ -152,7 +151,7 @@ button {
     align-self: flex-start;
     flex-wrap: wrap;
     margin-top: 3rem;
-    display: none;
+    /* display: none; */
 }
 .game-dashboard .step-two .user ,
 .game-dashboard .step-two .house {
@@ -166,6 +165,10 @@ button {
     width: 110px;
     aspect-ratio: 1;
 }
+.game-dashboard .step-two .winner .winner-animation.animate span {
+    animation: winnerFlowing 2s infinite;
+    animation-direction: alternate-reverse;
+}
 .game-dashboard .step-two .winner .winner-animation span {
     position: absolute;
     top: 50%;
@@ -173,6 +176,8 @@ button {
     transform: translate(-50%, -50%);
     padding: 8rem;
     border-radius: 50%;
+    aspect-ratio: 1;
+    transition: .5s;
     z-index: -1;
 }
 .game-dashboard .step-two .winner .winner-animation span:nth-child(1) {
@@ -186,6 +191,11 @@ button {
 .game-dashboard .step-two .winner .winner-animation span:nth-child(3) {
     padding: 10rem;
     background-color: #ffffff05;
+}
+.game-dashboard .step-two .winner .winner-animation.hide span:nth-child(1),
+.game-dashboard .step-two .winner .winner-animation.hide span:nth-child(2),
+.game-dashboard .step-two .winner .winner-animation.hide span:nth-child(3) {
+    padding: 0;
 }
 .game-dashboard .step-two .user .title ,
 .game-dashboard .step-two .house .title {
@@ -305,6 +315,39 @@ button {
     display: none;
 }
 /* ------------------------------------ Rules ---------------------------------------------- */
+
+/* ------------------------------------ Animations ---------------------------------------------- */
+
+@keyframes winnerFlowing {
+    50% {
+        padding: +9rem;
+    }
+    100% {
+        padding: +5rem;
+    }
+}
+@media (min-width: 992px) {
+    @keyframes winnerFlowing {
+        50% {
+            padding: +12rem;
+        }
+        100% {
+            padding: +9rem;
+        }
+    }
+}
+
+@keyframes IncrementScore {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        top: -50%;
+        opacity: 0;
+    }
+}
+
+/* ------------------------------------ Animations ---------------------------------------------- */
 
 /* ------------------------------------ Container & Query ---------------------------------------------- */
 
