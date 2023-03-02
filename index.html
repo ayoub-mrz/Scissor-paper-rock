@@ -23,7 +23,8 @@
             </div>
             <div class="game-score">
                 <div class="score-title">score</div>
-                <div class="score-num">0<span class="plus">+1</span></div>
+                <div class="score-num">0</div>
+                <span class="plus">+1</span>
             </div>
         </div>
         <!-- ------------------- Header ------------------- -->
@@ -31,27 +32,21 @@
         <!-- ------------------- Dashboard ------------------- -->
         <div class="game-dashboard">
 
-            <!-- <div class="step-one">
+            <div class="step-one">
                 <div class="piece paper">
                     <img src="IMG/icon-paper.svg" alt="paper">
                 </div>
                 <div class="piece scissor">
-                    <img src="IMG/icon-scissors.svg" alt="scissors">
+                    <img src="IMG/icon-scissor.svg" alt="scissor">
                 </div>
                 <div class="piece rock">
                     <img src="IMG/icon-rock.svg" alt="rock">
                 </div>
-            </div> -->
+            </div>
 
             <div class="step-two">
-                <div class="user winner">
-                    <div class="selection">
-
-                        <div class="piece scissor">
-                            <img src="IMG/icon-scissors.svg" alt="scissors">
-                        </div>
-
-                    </div>
+                <div class="user">
+                    <div class="selection"></div>
                     <div class="title">You picked</div>
                     <div class="winner-animation hide"><span></span><span></span><span></span></div>
                 </div>
@@ -83,6 +78,14 @@
                 </div>
             </div>
         </div> 
+        <!-- ------------------- Rules ------------------- -->
+
+        <!-- ------------------- Rules ------------------- -->
+        <div class="audios">
+            <audio id="win" src="audio/win.mp3" hidden></audio>
+            <audio id="lose" src="audio/lose.mp3" hidden></audio>
+            <audio id="draw" src="audio/draw.mp3" hidden></audio>
+        </div>
         <!-- ------------------- Rules ------------------- -->
 
     </div>

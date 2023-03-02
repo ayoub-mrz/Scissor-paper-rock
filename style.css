@@ -40,32 +40,32 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
- }
+    position: relative;
+}
 .game-header .game-score .score-title {
     color: #2a46c0;
     font-size: .75em;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
- }
+}
 .game-header .game-score .score-num {
     color: #3b4363;
     font-size: 2.55em;
     font-weight: 700;
     line-height: 40px;
-    position: relative;
- }
-.game-header .game-score .score-num .plus {
+}
+.game-header .game-score .plus {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%);
     color: #00bcd4;
-    font-size: .55em;
+    font-size: 1.2em;
+    font-weight: 700;
     line-height: 25px;
-    /* animation: IncrementScore 1.6s; */
     opacity: 0;
- }
+}
 /* ------------------------------------ Game Header ---------------------------------------------- */
 
 /* ------------------------------------ Game Dashboard ---------------------------------------------- */
@@ -151,7 +151,7 @@ button {
     align-self: flex-start;
     flex-wrap: wrap;
     margin-top: 3rem;
-    /* display: none; */
+    display: none;
 }
 .game-dashboard .step-two .user ,
 .game-dashboard .step-two .house {
@@ -218,6 +218,7 @@ button {
     left: 50%;
     letter-spacing: 2px;
     transform: translateX(-50%);
+    display: none;
 }
 .game-dashboard .step-two .result .result-title {
     font-size: 3em;
@@ -345,7 +346,7 @@ button {
         opacity: 1;
     }
     100% {
-        top: -50%;
+        top: -20%;
         opacity: 0;
     }
 }
