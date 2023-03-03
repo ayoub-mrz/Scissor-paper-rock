@@ -6,6 +6,8 @@ const onePlus = document.querySelector(".game-score .plus");
 const pieces = document.querySelectorAll(".step-one .piece");
 const stepOne = document.querySelector(".step-one");
 const stepTwo = document.querySelector(".step-two");
+const user = document.querySelector(".user");
+const house = document.querySelector(".house");
 let userChoice, houseChoise;
 const playAgain = document.querySelector(".play-again");
 const resultMsg = document.querySelector(".result");
@@ -16,14 +18,9 @@ const loseAudio = document.getElementById("lose");
 const drawAudio = document.getElementById("draw");
 /*-------------------------------------------------------------------------*/
 
-//
-let ScoreData = localStorage.getItem("score") || false;
-if (ScoreData) {
-    score.textContent = ScoreData;
-} else {
-    localStorage.setItem("score", 0)
-}
-
+// Checking if there is a data in localStoreg, if yes get data and place it, if no create new item(Score) in localStoreg
+let ScoreData = localStorage.getItem("score") || 0;
+ScoreData ? score.textContent = ScoreData : localStorage.setItem("score", 0);
 
 // Toggle rules visibility
 rulesBtn.addEventListener("click", () => {
@@ -37,33 +34,37 @@ closeBtn.addEventListener("click", () => {
 
 // Animation for increment score
 function scoreIncrement() {
+    // Apply animation for incrementing score
     onePlus.style.animation = "IncrementScore 2s";
+    // Add 1 to score in document
     score.textContent = +score.textContent + 1;
 
-    //
+    // Update score data in localStoreg
     localStorage.setItem("score", score.textContent)
 
 }
 
-// 
+// Add event(click) to all pieces in step one section
 pieces.forEach(piece => {
     piece.addEventListener("click", (e) => {
 
-        // Toggle steps visibility
+        // Go to step one by (hidding step one and showing step two)
         stepOne.style.display = "none";
         stepTwo.style.display = "flex";
 
-        // Select User choise
+        // Getting user choise
+        // If the target has className(Piece), get his second className 
+        // If the target hasn't className(Piece), get his parent second className 
         userChoice = e.target.classList.contains("piece") ? e.target.classList[1] : e.target.parentElement.classList[1];
 
         // Generate house choise
-        randomPiece();
+        houseChoise = randomPiece();
 
         // Append choises to selection area
         // User selection
         appendingPiece(userChoice, userSelection);
         
-        // User selection
+        // House selection
         appendingPiece(houseChoise, houseSelection);
 
     })
@@ -71,39 +72,46 @@ pieces.forEach(piece => {
 
 // Generat random piece
 function randomPiece() {
-    // Create an array of peices, and assign random piece to house choice
-    const arrayOfPieces = ["paper", "scissor", "rock","paper", "scissor", "rock","paper", "scissor", "rock","paper", "scissor", "rock","paper", "scissor", "rock"]
+    // Create an array of peices, and return random piece
+    const arrayOfPieces = ["paper", "scissor", "rock"]
     let randomNum = Math.floor(Math.random() * arrayOfPieces.length);
-    houseChoise = arrayOfPieces[randomNum];
+    console.log(randomNum);
+    return arrayOfPieces[randomNum];
 }
 
-//
+// Append chosen pieces in document
 function appendingPiece(choice, place) {
 
+    // Create piece elemnent
     let piece = document.createElement("div");
     piece.className = `piece ${choice}`;
-
+    
+    // Create img elemnent
     let img = document.createElement("img");
     img.src = `IMG/icon-${choice}.svg`;
     img.alt = choice;
     piece.append(img);
 
+    // If place parent is house it will take a moment, then append piece. (like the house is thinking for choosing piece😐)
     if (place.parentElement.classList.value === "user") {
         place.append(piece)
     } else {
         setTimeout(() => {
             place.append(piece); 
-            resultMsg.style.display = "block"; 
+            setTimeout(() => resultMsg.style.opacity = "1", 800);
             resultMsg.firstElementChild.innerHTML = result()
         }, 1500);
     }
 
 }
 
-//
+// 
 function result() {
-    // Draw its the default value of result
+
+    // If result is not win or lose, then draw its the default value
     let result = "Draw";
+
+    // Depend on user choice, it will assign a logical msg.
     switch (userChoice) {
         case "paper": 
             if (houseChoise === "scissor") {
@@ -128,12 +136,14 @@ function result() {
         break;
     }
 
-    //
+    // Depend on result, it will play an audio, and set an animation for the winner
     if (result === "You Win") {
         scoreIncrement();
         winAudio.play();
+        activeWinnerAnimation(user);
     } else if (result === "You lose") {
         loseAudio.play();
+        activeWinnerAnimation(house);
     } else {
         drawAudio.play();
     }
@@ -141,31 +151,35 @@ function result() {
     return result;
 }
 
-//
+// Event for Reset Game
 playAgain.addEventListener("click", () => {
     resetGame();
 })
 
-//
+// Adding winner class to winner(User || House)
+function activeWinnerAnimation(winner) {
+    winner.classList.add("winner");
+}
+
+// Reset all changes to default (Like Pressing refresh)
 function resetGame() {
-    //
+
+    // Return back to step one
     stepOne.style.display = "block";
     stepTwo.style.display = "none";
 
-    //
+    // Remove pieces 
     userSelection.innerHTML = "";
     houseSelection.innerHTML = "";
 
-    //
-    resultMsg.style.display = "none";
+    // Hide result msg
+    resultMsg.style.opacity = "0";
 
-    //
+    // Reset increment animation
     onePlus.style.animation = "none";
 
-}
+    // Remove class winner from previous winner(user || house);
+    const winner = document.querySelector(".winner");
+    winner?.classList.remove("winner");
 
-/*
-1- Fix result styles
-2- Clean up the code
-3- Comment all confusing lines.
-*/
+}

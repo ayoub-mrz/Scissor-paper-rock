@@ -86,6 +86,7 @@ button {
     box-shadow: 0 0 0 #000;
     cursor: pointer;
     transition: .5s;
+    user-select: none;
 }
 .game-dashboard .piece img {
     height: 40px;
@@ -160,16 +161,7 @@ button {
     align-items: center;
     position: relative;
 }
-.game-dashboard .step-two .winner .winner-animation {
-    position: absolute;
-    width: 110px;
-    aspect-ratio: 1;
-}
-.game-dashboard .step-two .winner .winner-animation.animate span {
-    animation: winnerFlowing 2s infinite;
-    animation-direction: alternate-reverse;
-}
-.game-dashboard .step-two .winner .winner-animation span {
+.game-dashboard .step-two .winner-animation span {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -179,6 +171,19 @@ button {
     aspect-ratio: 1;
     transition: .5s;
     z-index: -1;
+    opacity: 0;
+}
+.game-dashboard .step-two .winner .winner-animation {
+    position: absolute;
+    width: 110px;
+    aspect-ratio: 1;
+}
+.game-dashboard .step-two .winner .winner-animation span {
+    animation: winnerFlowing 2s infinite;
+    animation-direction: alternate-reverse;
+}
+.game-dashboard .step-two .winner .winner-animation span {
+    opacity: 1;
 }
 .game-dashboard .step-two .winner .winner-animation span:nth-child(1) {
     padding: 6rem;
@@ -191,11 +196,6 @@ button {
 .game-dashboard .step-two .winner .winner-animation span:nth-child(3) {
     padding: 10rem;
     background-color: #ffffff05;
-}
-.game-dashboard .step-two .winner .winner-animation.hide span:nth-child(1),
-.game-dashboard .step-two .winner .winner-animation.hide span:nth-child(2),
-.game-dashboard .step-two .winner .winner-animation.hide span:nth-child(3) {
-    padding: 0;
 }
 .game-dashboard .step-two .user .title ,
 .game-dashboard .step-two .house .title {
@@ -212,13 +212,19 @@ button {
     display: grid;
     place-items: center;
 }
+.game-dashboard .step-two .selection .piece {
+    cursor: unset;
+}
 .game-dashboard .step-two .result {
+    width: 200px;
     position: absolute;
     bottom: -90%;
     left: 50%;
-    letter-spacing: 2px;
     transform: translateX(-50%);
-    display: none;
+    letter-spacing: 2px;
+    text-align: center;
+    transition: .5s;
+    opacity: 0;
 }
 .game-dashboard .step-two .result .result-title {
     font-size: 3em;
@@ -423,6 +429,12 @@ button {
         padding: 12rem;
         background-color: #ffffff05;
     }
+    .game-dashboard .step-two .result {
+        width: 230px;
+    }
+    .game-dashboard .step-two .result .result-title {
+        font-size: 3.55rem;
+    }
     /* Dashboard */
     
     /* Rules */
@@ -464,11 +476,7 @@ button {
         width: 90%;
     }
     .game-dashboard .step-two .result {
-        position: absolute;
-        bottom: unset;
-        left: 50%;
-        letter-spacing: 2px;
-        transform: translateX(-50%);
+        bottom: 10%;
     }
     .game-dashboard .step-two .piece,
     .game-dashboard .step-two .winner .winner-animation {
