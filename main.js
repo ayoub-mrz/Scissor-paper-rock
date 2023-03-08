@@ -183,3 +183,8 @@ function resetGame() {
     winner?.classList.remove("winner");
 
 }
+
+
+/*
+3/ Create animation for transition between step one to two
+*/
