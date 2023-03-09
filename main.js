@@ -181,8 +181,9 @@ function transitionAnimation(pieceOp, backgroundImg) {
     })
     // Toggle step one background
     stepOne.style.backgroundImage = backgroundImg;
-    // Toggle chosen class in userchoice (piece)
-    document.querySelector(`.${userChoice}`).classList.toggle('chosen'); 
+    // Toggle chosen class in userchoice (piece), I remove toggle for some issues
+    pieceOp ? document.querySelector(`.${userChoice}`).classList.remove('chosen') 
+    : document.querySelector(`.${userChoice}`).classList.add('chosen');
 }
 
 // Reset all changes to default (Like Clicking refresh)
