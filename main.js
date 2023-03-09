@@ -16,11 +16,15 @@ const houseSelection = stepTwo.children[1].firstElementChild;
 const winAudio = document.getElementById("win");
 const loseAudio = document.getElementById("lose");
 const drawAudio = document.getElementById("draw");
+const choseAudio = document.getElementById("chose");
+// Create an array of pieces, and return random piece
+const arrayOfPieces = ["paper", "scissor", "rock"]
 /*-------------------------------------------------------------------------*/
 
 // Checking if there is a data in localStoreg, if yes get data and place it, if no create new item(Score) in localStoreg
 let ScoreData = localStorage.getItem("score") || 0;
-ScoreData ? score.textContent = ScoreData : localStorage.setItem("score", 0);
+!ScoreData && localStorage.setItem("score", 0);
+score.textContent = ScoreData 
 
 // Toggle rules visibility
 rulesBtn.addEventListener("click", () => {
@@ -49,8 +53,14 @@ pieces.forEach(piece => {
     piece.addEventListener("click", (e) => {
 
         // Go to step one by (hidding step one and showing step two)
-        stepOne.style.display = "none";
-        stepTwo.style.display = "flex";
+        setTimeout(() => {
+            stepOne.style.opacity = 0;
+            setTimeout(() => {
+                stepOne.style.display = "none";
+                stepTwo.style.display = "flex";
+                stepTwo.style.opacity = 1;
+            }, 800);
+        }, 1500);
 
         // Getting user choise
         // If the target has className(Piece), get his second className 
@@ -67,15 +77,17 @@ pieces.forEach(piece => {
         // House selection
         appendingPiece(houseChoise, houseSelection);
 
+        transitionAnimation(0, "none");
+
+        // Audio for piece click
+        choseAudio.play();
+
     })
 })
 
 // Generat random piece
 function randomPiece() {
-    // Create an array of peices, and return random piece
-    const arrayOfPieces = ["paper", "scissor", "rock"]
     let randomNum = Math.floor(Math.random() * arrayOfPieces.length);
-    console.log(randomNum);
     return arrayOfPieces[randomNum];
 }
 
@@ -100,12 +112,10 @@ function appendingPiece(choice, place) {
             place.append(piece); 
             setTimeout(() => resultMsg.style.opacity = "1", 800);
             resultMsg.firstElementChild.innerHTML = result()
-        }, 1500);
+        }, 3000);
     }
-
 }
 
-// 
 function result() {
 
     // If result is not win or lose, then draw its the default value
@@ -161,12 +171,30 @@ function activeWinnerAnimation(winner) {
     winner.classList.add("winner");
 }
 
-// Reset all changes to default (Like Pressing refresh)
+// Animation for focusing on chosed piece
+function transitionAnimation(pieceOp, backgroundImg) {
+    // Getting all unchosed pieced
+    let pieces = arrayOfPieces.filter(piece => piece !== userChoice);
+    // Hiding unchosed pieced
+    pieces.forEach(piece => {
+        document.querySelector(`.${piece}`).style.opacity = pieceOp;
+    })
+    // Toggle step one background
+    stepOne.style.backgroundImage = backgroundImg;
+    // Toggle chosen class in userchoice (piece)
+    document.querySelector(`.${userChoice}`).classList.toggle('chosen'); 
+}
+
+// Reset all changes to default (Like Clicking refresh)
 function resetGame() {
 
     // Return back to step one
-    stepOne.style.display = "block";
-    stepTwo.style.display = "none";
+    stepTwo.style.opacity = 0;
+    setTimeout(() => {
+        stepTwo.style.display = "none";
+        stepOne.style.display = "flex";
+        stepOne.style.opacity = 1;
+    }, 800);
 
     // Remove pieces 
     userSelection.innerHTML = "";
@@ -182,9 +210,10 @@ function resetGame() {
     const winner = document.querySelector(".winner");
     winner?.classList.remove("winner");
 
+    transitionAnimation(1, "url(IMG/bg-triangle.svg)")
+
+    // Clear all used variables
+    userChoice = "";
+    houseChoise = "";
+
 }
-
-
-/*
-3/ Create animation for transition between step one to two
-*/
