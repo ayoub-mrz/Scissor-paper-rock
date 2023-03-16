@@ -1,57 +1,62 @@
-const CACHE_NAME = 'static_cache'
-const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/main.js',
-    '/IMG/favicon-32x32.png',
-    '/IMG/bg-triangle.svg',
-    '/IMG/icon-close.svg',
-    '/IMG/icon-paper.svg',
-    '/IMG/icon-rock.svg',
-    '/IMG/icon-scissor.svg',
-    '/IMG/image-rules.svg',
-    '/IMG/logo.svg',
-    '/audio/click.mp3',
-    '/audio/draw.mp3',
-    '/audio/lose.mp3',
-    '/audio/win.mp3'
+var APP_PREFIX = 'ApplicationName_'     
+var VERSION = 'v_01'              
+var CACHE_NAME = APP_PREFIX + VERSION
+var URLS = [                            
+    '/Scissor-paper-rock/',                     
+    '/Scissor-paper-rock/index.html',
+    '/Scissor-paper-rock/style.css',
+    '/Scissor-paper-rock/main.js',
+    '/Scissor-paper-rock/IMG/favicon-32x32.png',
+    '/Scissor-paper-rock/IMG/bg-triangle.svg',
+    '/Scissor-paper-rock/IMG/icon-close.svg',
+    '/Scissor-paper-rock/IMG/icon-paper.svg',
+    '/Scissor-paper-rock/IMG/icon-rock.svg',
+    '/Scissor-paper-rock/IMG/icon-scissor.svg',
+    '/Scissor-paper-rock/IMG/image-rules.svg',
+    '/Scissor-paper-rock/IMG/logo.svg',
+    '/Scissor-paper-rock/audio/click.mp3',
+    '/Scissor-paper-rock/audio/draw.mp3',
+    '/Scissor-paper-rock/audio/lose.mp3',
+    '/Scissor-paper-rock/audio/win.mp3'
 ]
 
-self.addEventListener('install', e => {
-    self.skipWaiting()
-    e.waitUntil(preCach())
-})
-
-self.addEventListener('activate', e => {
-    e.waitUntil(cleanCache())
-})
-
-self.addEventListener('fetch', e => {
-    e.respondWith(fetchAssets(e))
-})
-
-async function preCach() {
-    const cache = await caches.open(CACHE_NAME)
-    return cache.addAll(STATIC_ASSETS)
-}
-
-async function fetchAssets(e) {
-    try {
-        const response = await fetch(e.request)
-        return response
-    } catch (err) {
-        const cache = await caches.open(CACHE_NAME)
-        return cache.match(e.request)
-    }
-}
-
-async function cleanCache() {
-    const keys = await caches.keys()
-    const keysToDelete = keys.map(key => {
-        if (key !== CACHE_NAME) return caches.delete(key)
+// Respond with cached resources
+self.addEventListener('fetch', function (e) {
+  console.log('fetch request : ' + e.request.url)
+  e.respondWith(
+    caches.match(e.request).then(function (request) {
+      if (request) { 
+        return request
+      } else {       
+        return fetch(e.request)
+      }
     })
+  )
+})
 
-    return Promise.all(keysToDelete)
+// Cache resources
+self.addEventListener('install', function (e) {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.addAll(URLS)
+    })
+  )
+})
 
-}
+// Delete outdated caches
+self.addEventListener('activate', function (e) {
+  e.waitUntil(
+    caches.keys().then(function (keyList) {
+      var cacheWhitelist = keyList.filter(function (key) {
+        return key.indexOf(APP_PREFIX)
+      })
+      cacheWhitelist.push(CACHE_NAME)
+
+      return Promise.all(keyList.map(function (key, i) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(keyList[i])
+        }
+      }))
+    })
+  )
+})
